@@ -7,83 +7,158 @@
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         :root {
             --navy: #0a1d37;
             --gold: #ffcc00;
-            --sky: #e1f5fe;
+            --cream: #fdfbf7;
             --white: #ffffff;
+            --pattern: radial-gradient(rgba(10, 29, 55, 0.12) 1.5px, transparent 1.5px);
         }
 
-        body { font-family: 'Montserrat', sans-serif; background-color: #fcfcfc; color: #333; scroll-behavior: smooth; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--white); color: #333; scroll-behavior: smooth; overflow-x: hidden; }
         h1, h2, h3 { font-family: 'Playfair Display', serif; }
 
-        /* Navigation - Dynamic Transition */
+        /* --- GLOBAL PROFESSIONAL SPACING --- */
+        .section-spacing { padding: 90px 0; } 
+        .section-title { margin-bottom: 50px; } 
+
+        /* NAVBAR */
         .navbar { 
-            background: var(--white); 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
-            padding: 20px 0; 
-            transition: all 0.4s ease-in-out;
+            background: var(--white); box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
+            padding: 20px 0; transition: all 0.4s ease-in-out;
         }
+        .navbar.scrolled { padding: 8px 0; background: rgba(255, 255, 255, 0.98); box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+        .navbar-brand img { height: 65px; transition: 0.4s; }
+        .navbar.scrolled .navbar-brand img { height: 45px; }
         
-        /* This class is added via JS on scroll */
-        .navbar.scrolled {
-            padding: 5px 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(5px);
+        .nav-link { 
+            position: relative; color: var(--navy) !important; font-weight: 700; text-transform: uppercase; 
+            font-size: 0.85rem; letter-spacing: 1px; margin: 0 12px; padding-bottom: 5px;
         }
-
-        .navbar-brand img {
-            height: 65px;
-            transition: all 0.4s ease-in-out;
+        .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: 0; left: 50%; background-color: var(--gold);
+            transition: all 0.3s ease-in-out; transform: translateX(-50%);
         }
+        .nav-link:hover::after { width: 100%; }
+        
+        /* BUTTONS */
+        .btn-apply { background: var(--gold); color: var(--navy); font-weight: 800; border-radius: 50px; padding: 12px 30px; border: none; transition: 0.3s; box-shadow: 0 4px 15px rgba(255, 204, 0, 0.4); }
+        .btn-apply:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(255, 204, 0, 0.6); }
+        .btn-outline-navy { border: 2px solid var(--navy); color: var(--navy); border-radius: 50px; padding: 10px 25px; transition: 0.3s; font-weight: 700; }
+        .btn-outline-navy:hover { background: var(--navy); color: white; }
+        .btn-outline-light { border: 2px solid var(--white); color: var(--white); border-radius: 50px; padding: 12px 30px; transition: 0.3s; font-weight: 700; background: transparent; }
+        .btn-outline-light:hover { background: var(--white); color: var(--navy); }
 
-        .navbar.scrolled .navbar-brand img {
-            height: 45px;
-        }
-
-        .nav-link { color: var(--navy) !important; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; }
-        .btn-apply { background: var(--gold); color: var(--navy); font-weight: 700; border-radius: 50px; padding: 10px 25px; border: none; transition: 0.3s; }
-        .btn-apply:hover { background: var(--navy); color: var(--white); }
-
-        /* Hero Section */
+        /* HERO */
         .hero {
             height: 90vh;
-            background: linear-gradient(rgba(10, 29, 55, 0.6), rgba(10, 29, 55, 0.4)), 
+            background: linear-gradient(rgba(10, 29, 55, 0.7), rgba(10, 29, 55, 0.5)), 
                         url('https://images.pexels.com/photos/18012456/pexels-photo-18012456.jpeg');
             background-size: cover; background-position: center;
             display: flex; align-items: center; color: var(--white);
         }
 
-        /* Birthday Section */
-        .bday-section { background: var(--sky); padding: 80px 0; border-radius: 50px 50px 0 0; }
+        /* BACKGROUNDS */
+        .bg-premium { background: linear-gradient(to bottom, #fdfbfb 0%, #f4f8fb 100%); }
+        /* Lightened Principal Background */
+        .bg-principal { background: linear-gradient(135deg, #f4f7f9 0%, #e2e8f0 100%); } 
+        .section-pattern { background-image: var(--pattern); background-size: 24px 24px; }
+
+        /* BIRTHDAY SECTION */
+        .bday-section { background: var(--navy); padding: 70px 0; color: white; }
         .bday-card {
-            background: var(--white); border-radius: 20px; padding: 40px; text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1); border: 2px solid var(--gold);
+            background: var(--white); color: var(--navy); border-radius: 15px; padding: 30px; text-align: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2); border: 3px solid var(--gold); height: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: transform 0.3s ease;
         }
-        .bday-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 5px solid var(--gold); margin-bottom: 20px; }
+        .bday-card:hover { transform: translateY(-5px); }
 
-        /* Academics Cards */
+        /* CREATIVE WHY CHOOSE US */
+        .modern-why-section { 
+            background: linear-gradient(135deg, var(--navy) 0%, #081224 100%);
+            position: relative; overflow: hidden; 
+            padding-bottom: 150px; /* Increased lower padding */
+        }
+        .modern-why-section::before {
+            content: ''; position: absolute; top: -100px; left: -100px; width: 300px; height: 300px;
+            background: var(--gold); border-radius: 50%; opacity: 0.15; filter: blur(50px);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
+            border-radius: 15px; padding: 35px 25px; text-align: left; transition: all 0.4s; height: 100%; position: relative; overflow: hidden;
+        }
+        .glass-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 0; background: var(--gold); transition: height 0.4s ease;
+        }
+        .glass-card:hover { transform: translateY(-10px); background: rgba(255, 255, 255, 0.08); border-color: rgba(255,255,255,0.2); box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
+        .glass-card:hover::before { height: 100%; }
+        .gradient-icon {
+            font-size: 2.8rem; margin-bottom: 20px;
+            background: -webkit-linear-gradient(45deg, var(--gold), #ffaa00);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        /* ACADEMIC CARDS */
         .academic-card {
-            border: none; border-radius: 15px; overflow: hidden; transition: 0.3s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); background: var(--white); height: 100%;
+            border: none; border-radius: 20px; overflow: hidden; transition: 0.4s;
+            box-shadow: 0 15px 35px rgba(10,29,55,0.08); height: 100%; background: var(--white);
         }
-        .academic-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
-        .card-img-top { height: 230px; object-fit: cover; }
+        .academic-card:hover { transform: translateY(-10px); box-shadow: 0 25px 45px rgba(10,29,55,0.15); }
+        .card-img-top { height: 250px; object-fit: cover; }
+        .card-body { padding: 30px !important; }
 
-        /* Social Initiative */
-        .social-box { background: var(--navy); color: var(--white); border-radius: 30px; overflow: hidden; }
+        /* PRINCIPAL SECTION - COMPACT */
+        .principal-img { border-radius: 15px; width: 100%; height: 380px; object-fit: cover; box-shadow: -15px 15px 0 var(--gold); }
 
-        /* Principal Section */
-        .principal-img { border-radius: 20px; width: 100%; height: 450px; object-fit: cover; box-shadow: 20px 20px 0 var(--gold); }
+        /* PROFESSIONAL GALLERY */
+        .gallery-item {
+            border-radius: 15px; overflow: hidden; position: relative; aspect-ratio: 4/3; cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .gallery-overlay {
+            position: absolute; inset: 0; background: rgba(10, 29, 55, 0.8);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: 0.4s ease; color: white;
+        }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
 
-        /* Video Utility */
-        .ratio-16x9 { background: #000; border-radius: 15px; overflow: hidden; }
+        /* PROFESSIONAL TESTIMONIALS */
+        .testi-card {
+            background: white; padding: 35px; border-radius: 15px; position: relative;
+            box-shadow: 0 15px 30px rgba(10,29,55,0.06); transition: 0.3s; height: 100%;
+        }
+        .testi-card:hover { transform: translateY(-8px); border-bottom: 4px solid var(--gold); }
+        .quote-icon { font-size: 2.2rem; color: var(--gold); opacity: 0.2; position: absolute; top: 20px; left: 25px; }
 
-        footer { background: var(--navy); color: #cbd5e1; padding: 80px 0 30px; }
-        .footer-logo-text { font-size: 1.8rem; color: var(--gold); font-weight: 800; }
+        /* FOOTER */
+        footer { background: var(--navy); color: #cbd5e1; padding: 80px 0 40px; border-top: 5px solid var(--gold); }
+        .footer-icon { color: var(--gold); width: 25px; text-align: center; margin-right: 10px; }
+        .social-link { 
+            display: inline-flex; align-items: center; justify-content: center; 
+            width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); 
+            color: white; transition: 0.3s; margin-right: 10px; text-decoration: none;
+        }
+        .social-link:hover { background: var(--gold); color: var(--navy); transform: translateY(-3px); }
+        
+        /* Custom Class for Footer Links */
+        .footer-link {
+            color: #cbd5e1; 
+            text-decoration: none;
+            transition: 0.3s;
+            display: inline-block;
+        }
+        .footer-link:hover {
+            color: var(--gold);
+            transform: translateX(5px); 
+        }
     </style>
 </head>
 <body>
@@ -91,95 +166,123 @@
     <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="logo.jpg" alt="BDJM Logo">
-                <span class="ms-3 d-none d-md-block" style="font-weight:800; color:var(--navy); font-size:1.4rem;">BDJM PUBLIC SCHOOL</span>
+                <img src="logo.jpg" alt="Logo">
+                <span class="ms-3 d-none d-md-block fw-bold" style="color:var(--navy); font-size:1.3rem;">BDJM PUBLIC SCHOOL</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#academics">Academics</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#life">School Life</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                    <li class="nav-item ms-lg-4"><a href="#" class="btn btn-apply">Admissions Open</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="academics.html">Academics</a></li>
+                    <li class="nav-item"><a class="nav-link" href="school-life.html">School Life</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item ms-lg-4"><a href="admissions.html" class="btn btn-apply">Admissions Open</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <header class="hero">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <h1 class="display-1 fw-bold mb-4">Shaping Tomorrow's Leaders Today.</h1>
-                    <p class="fs-4 mb-5">At BDJM Public School, we blend world-class academics with deep-rooted values to provide a holistic education amidst the serenity of Nainital.</p>
-                    <div class="d-flex gap-3">
-                        <a href="#academics" class="btn btn-apply btn-lg px-5">Explore More</a>
-                        <button class="btn btn-outline-light btn-lg rounded-pill px-5">Virtual Tour</button>
-                    </div>
-                </div>
+        <div class="container" data-aos="fade-right">
+            <h1 class="display-1 fw-bold mb-4">Shaping Tomorrow's<br>Leaders Today.</h1>
+            <p class="fs-4 mb-5 opacity-75">Excellence in Education in Dhikuli Ramnagar, Nainital.</p>
+            <div class="d-flex gap-3">
+                <a href="#" class="btn btn-apply">Explore More</a>
+                <a href="#" class="btn btn-outline-light">Virtual Tour</a>
             </div>
         </div>
     </header>
 
-    <section id="about" class="py-5">
-        <div class="container py-5">
+    <section class="section-spacing bg-premium section-pattern" style="padding-bottom: 130px;">
+        <div class="container">
             <div class="row align-items-center g-5">
-                <div class="col-lg-6">
-                    <h2 class="display-4 fw-bold mb-4" style="color:var(--navy)">Legacy of Knowledge</h2>
-                    <p class="lead text-muted">BDJM Public School is a hub for innovative learning and social responsibility. Located in the beautiful landscapes of Ramnagar, we are committed to creating an environment where curiosity thrives.</p>
-                    <div class="mt-4 p-4 border-start border-4 border-warning bg-light">
-                        <h5 class="fw-bold text-navy">Our Vision</h5>
-                        <p class="mb-0">To foster a generation that is academically brilliant, socially conscious, and emotionally resilient.</p>
+                <div class="col-lg-6" data-aos="fade-up">
+                    <h2 class="display-5 fw-bold mb-4" style="color:var(--navy)">Legacy of Knowledge</h2>
+                    <p class="lead text-muted mb-4">A hub for innovative learning and social responsibility. We are committed to creating an environment where curiosity thrives and values are built.</p>
+                    <div class="mt-4 p-4 border-start border-4 border-warning bg-white shadow-sm rounded">
+                        <h5 class="fw-bold text-navy mb-2">Our Vision</h5>
+                        <p class="mb-0 text-muted fst-italic">"To foster a generation that is academically brilliant and emotionally resilient."</p>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="row g-3">
-                        <div class="col-6"><img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=400" class="img-fluid rounded-4 shadow-sm" alt="Students"></div>
-                        <div class="col-6 mt-4"><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=400" class="img-fluid rounded-4 shadow-sm" alt="Classroom"></div>
+                <div class="col-lg-6" data-aos="zoom-in">
+                    <div class="row g-4">
+                        <div class="col-6"><img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=400" class="img-fluid rounded-4 shadow-lg" alt="S"></div>
+                        <div class="col-6 mt-5"><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=400" class="img-fluid rounded-4 shadow-lg" alt="C"></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="bday-section">
+    <section class="section-spacing bday-section">
+        <div class="container text-center" data-aos="fade-up">
+            <h2 class="display-4 fw-bold text-white mb-5">Today's Star 🎉</h2>
+            <div class="row justify-content-center g-4" id="bday-display"></div>
+        </div>
+    </section>
+
+    <section class="section-spacing modern-why-section">
+        <div class="container">
+            <div class="text-center section-title" data-aos="fade-down">
+                <h2 class="display-5 fw-bold text-white mb-2">Why Choose <span class="text-gold">BDJM?</span></h2>
+                <p class="text-white opacity-75">Setting the gold standard for education in Nainital.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="glass-card">
+                        <i class="fas fa-chalkboard-teacher gradient-icon"></i>
+                        <h4 class="text-white fw-bold mb-3">Expert Mentors</h4>
+                        <p class="text-white opacity-75 mb-0">Our faculty isn't just qualified; they are passionate mentors dedicated to unlocking every child's unique potential.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="glass-card">
+                        <i class="fas fa-atom gradient-icon"></i>
+                        <h4 class="text-white fw-bold mb-3">Future-Ready Labs</h4>
+                        <p class="text-white opacity-75 mb-0">Equipped with state-of-the-art Science, Computer, and Robotics labs to provide hands-on, practical knowledge.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="glass-card">
+                        <i class="fas fa-shield-alt gradient-icon"></i>
+                        <h4 class="text-white fw-bold mb-3">Safe Campus</h4>
+                        <p class="text-white opacity-75 mb-0">A lush, green, and completely secure campus monitored 24/7, ensuring a worry-free environment for learning.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacing bg-white section-pattern" style="padding-bottom: 130px;">
         <div class="container text-center">
-            <h2 class="display-5 fw-bold mb-5" style="color:var(--navy)">Today's Star 🎉</h2>
-            <div class="row justify-content-center" id="bday-display"></div>
-        </div>
-    </section>
-
-    <section id="academics" class="py-5 bg-white">
-        <div class="container py-5 text-center">
-            <h2 class="display-5 fw-bold mb-5">Academic Excellence</h2>
+            <h2 class="display-5 fw-bold section-title" data-aos="fade-up" style="color:var(--navy)">Academic Excellence</h2>
             <div class="row g-4 text-start">
-                <div class="col-md-4">
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="card academic-card">
-                        <img src="school.jpg" class="card-img-top" alt="Primary">
-                        <div class="card-body p-4">
-                            <h4 class="fw-bold text-navy">Primary School</h4>
-                            <p class="text-muted small">Concept-based learning through discovery and play for our youngest learners.</p>
+                        <img src="school.jpg" class="card-img-top" alt="P">
+                        <div class="card-body text-center">
+                            <h4 class="fw-bold text-navy mb-2">Primary School</h4>
+                            <p class="text-muted mb-0">Discovery-based learning for our youngest stars.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="card academic-card">
-                        <img src="middleschool.jpg" class="card-img-top" alt="Middle">
-                        <div class="card-body p-4">
-                            <h4 class="fw-bold text-navy">Middle School</h4>
-                            <p class="text-muted small">Activity-based curriculum designed to spark scientific inquiry and reasoning.</p>
+                        <img src="middleschool.jpg" class="card-img-top" alt="M">
+                        <div class="card-body text-center">
+                            <h4 class="fw-bold text-navy mb-2">Middle School</h4>
+                            <p class="text-muted mb-0">Scientific inquiry and analytical reasoning.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
                     <div class="card academic-card">
-                        <img src="seniorsecondaryschool.jpg" class="card-img-top" alt="Secondary">
-                        <div class="card-body p-4">
-                            <h4 class="fw-bold text-navy">Senior Secondary</h4>
-                            <p class="text-muted small">Rigorous academic training focused on board results and competitive career paths.</p>
+                        <img src="seniorsecondaryschool.jpg" class="card-img-top" alt="S">
+                        <div class="card-body text-center">
+                            <h4 class="fw-bold text-navy mb-2">Senior Secondary</h4>
+                            <p class="text-muted mb-0">Preparing for boards and global career paths.</p>
                         </div>
                     </div>
                 </div>
@@ -187,148 +290,231 @@
         </div>
     </section>
 
-    <section class="container my-5">
-        <div class="social-box">
-            <div class="row align-items-center g-0">
-                <div class="col-lg-6 p-5">
-                    <h2 class="display-5 fw-bold mb-4">Empowering the Underprivileged ❤️</h2>
-                    <p class="fs-5 mb-4">Through our <strong>'Education for All'</strong> initiative, we provide free support to over 200 local children in the Ramnagar region every year.</p>
-                    <button class="btn btn-apply">Our Impact Report</button>
-                </div>
-                <div class="col-lg-6">
-                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=800" class="img-fluid w-100 h-100" style="object-fit:cover;" alt="Social Work">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-5">
-        <div class="container py-5">
+    <section class="section-spacing bg-principal">
+        <div class="container">
             <div class="row align-items-center g-5">
-                <div class="col-lg-5">
-                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800" class="principal-img" alt="Principal">
+                <div class="col-lg-5" data-aos="zoom-in">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800" class="principal-img" alt="P">
                 </div>
-                <div class="col-lg-7">
-                    <h2 class="display-5 fw-bold mb-4">Message from the Principal</h2>
-                    <p class="fs-5 fst-italic mb-4 text-muted">"At BDJM, we don't just teach subjects; we nurture souls. Our faculty is composed of experts who are passionate about mentoring the next generation of innovators in the heart of Uttarakhand."</p>
-                    <h4 class="fw-bold mb-0 text-navy">Dr. Anjali Verma</h4>
-                    <p class="text-warning fw-bold">Principal, BDJM Public School</p>
+                <div class="col-lg-7" data-aos="fade-left">
+                    <h2 class="display-5 fw-bold mb-4" style="color:var(--navy)">Message from the Principal</h2>
+                    <p class="fs-5 fst-italic mb-4 text-muted lh-lg">"At BDJM, we don't just teach subjects; we nurture souls. Our faculty is passionate about mentoring the next generation in the heart of Uttarakhand."</p>
+                    <h5 class="fw-bold mb-1 text-navy">Dr. Anjali Verma</h5>
+                    <p class="text-warning fw-bold small">Principal, BDJM Public School</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="life" class="py-5 bg-light">
-    <div class="container py-5 text-center">
-        <h2 class="display-5 fw-bold mb-5">👉 “Life at Our School”</h2>
-        <div class="row g-4 text-start">
-            <div class="col-md-6">
-                <div class="video-card shadow rounded-4 overflow-hidden bg-white">
-                    <div class="ratio ratio-16x9">
-                        <iframe src="https://youtu.be/uNSE3qhnutw" 
-                                id="video1"
-                                title="Annual Function" 
-                                allowfullscreen></iframe>
-                    </div>
-                    <div class="p-3">
-                        <h5 class="fw-bold text-navy mb-0">Annual Function Highlights</h5>
+    <section class="section-spacing bg-white">
+        <div class="container">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end section-title" data-aos="fade-up">
+                <div class="text-center text-md-start mb-4 mb-md-0">
+                    <h2 class="display-5 fw-bold" style="color:var(--navy)">Life at BDJM</h2>
+                    <p class="text-muted fs-5 mb-0">Glimpses of our vibrant campus and student activities.</p>
+                </div>
+                <a href="#" class="btn btn-outline-navy fw-bold px-4 py-2">View Full Gallery <i class="fas fa-arrow-right ms-2"></i></a>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=600" alt="Gallery">
+                        <div class="gallery-overlay"><h5 class="fw-bold mb-0">Annual Sports Day</h5></div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="video-card shadow rounded-4 overflow-hidden bg-white">
-                    <div class="ratio ratio-16x9">
-                        <iframe src="https://youtu.be/xiAanmOqVKc" 
-                                id="video2"
-                                title="Campus Tour" 
-                                allowfullscreen></iframe>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1511629091441-ee46146481b6?auto=format&fit=crop&w=600" alt="Gallery">
+                        <div class="gallery-overlay"><h5 class="fw-bold mb-0">Science Exhibition</h5></div>
                     </div>
-                    <div class="p-3">
-                        <h5 class="fw-bold text-navy mb-0">Other Events & Activities</h5>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="gallery-item">
+                        <img src="middleschool.jpg" alt="Gallery">
+                        <div class="gallery-overlay"><h5 class="fw-bold mb-0">Graduation Ceremony</h5></div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <section class="section-spacing bg-premium section-pattern" style="padding-bottom: 140px;">
+        <div class="container">
+            <div class="text-center section-title" data-aos="fade-up">
+                <h2 class="display-4 fw-bold mb-2" style="color:var(--navy)">Parent Testimonials</h2>
+                <p class="text-muted fs-5">Hear from the families who trust us with their children's future.</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testi-card">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <p class="fs-6 mt-4 text-muted fst-italic">"The teachers here go above and beyond. My son has developed not just academically but socially too. Highly recommended school in Ramnagar."</p>
+                        <hr class="my-3 opacity-25 border-secondary">
+                        <h6 class="fw-bold text-navy mb-1">Mrs. Sunita Rawat</h6>
+                        <small class="text-gold fw-bold text-uppercase tracking-widest" style="font-size: 0.75rem;">Parent of Class VIII Student</small>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="testi-card">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <p class="fs-6 mt-4 text-muted fst-italic">"BDJM provides a perfect blend of discipline and creativity. The safe and green campus is a huge plus for the well-being of our children."</p>
+                        <hr class="my-3 opacity-25 border-secondary">
+                        <h6 class="fw-bold text-navy mb-1">Mr. Anil Negi</h6>
+                        <small class="text-gold fw-bold text-uppercase tracking-widest" style="font-size: 0.75rem;">Parent of Class X Student</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <footer id="contact">
         <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-4">
-                    <div class="footer-logo-text mb-4">BDJM</div>
-                    <p>Building a brighter future through education, empathy, and excellence. Nestled in the hills of Nanital, we are your partners in growth.</p>
-                    <div class="mt-4">
-                        <a href="#" class="text-white me-3 fs-4"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-white me-3 fs-4"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-white fs-4"><i class="fab fa-youtube"></i></a>
+            <div class="row g-5 justify-content-between">
+                
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="mb-3" style="font-size: 2.2rem; font-weight: 800; color: var(--gold); font-family: 'Playfair Display', serif;">BDJM</div>
+                    <p class="opacity-75 mb-4">Building a brighter future through education, empathy, and excellence. We are your partners in growth.</p>
+                    <div class="d-flex">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-4 ps-lg-5">
-                    <h5 class="text-white fw-bold mb-4">Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Academic Calendar</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Transfer Certificate</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Achievement Gallery</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">School ERP Login</a></li>
+
+                <div class="col-lg-3 mb-4 mb-lg-0">
+                    <h5 class="text-white mb-4 fw-bold">Quick Links</h5>
+                    <ul class="list-unstyled opacity-75">
+                        <li class="mb-3"><a href="#" class="footer-link">About Us</a></li>
+                        <li class="mb-3"><a href="#" class="footer-link">Admission Policy</a></li>
+                        <li class="mb-3"><a href="#" class="footer-link">Academic Calendar</a></li>
+                        <li class="mb-3"><a href="#" class="footer-link">School ERP Login</a></li>
                     </ul>
                 </div>
+
                 <div class="col-lg-4">
-                    <h5 class="text-white fw-bold mb-4">Contact Us</h5>
-                    <p class="mb-3"><i class="fas fa-map-marker-alt me-2 text-warning"></i> Dhikuli Ramnagar, Nanital 244715</p>
-                    <p class="mb-3"><i class="fas fa-phone-alt me-2 text-warning"></i> +91 98765 43210</p>
-                    <p><i class="fas fa-envelope me-2 text-warning"></i> info@bdjmpublicschool.com</p>
-                    <div class="mt-4 ratio ratio-4x3 rounded shadow-sm overflow-hidden" style="max-width: 300px;">
-                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3483.565431804245!2d79.125916!3d29.429033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390a4306385a3861%3A0x6a0c0a0c0a0c0a0c!2sDhikuli%2C%20Ramnagar!5e0!3m2!1sen!2sin!4v1610000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
+                    <h5 class="text-white mb-4 fw-bold">Contact Us</h5>
+                    <ul class="list-unstyled opacity-75">
+                        <li class="mb-3 d-flex align-items-start">
+                            <i class="fas fa-map-marker-alt footer-icon mt-1"></i>
+                            <span>Dhikuli Ramnagar,<br>Nainital, Uttarakhand 244715</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-center">
+                            <i class="fas fa-phone-alt footer-icon"></i>
+                            <span>+91 98765 43210</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-center">
+                            <i class="fas fa-envelope footer-icon"></i>
+                            <span>info@bdjmpublicschool.com</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <hr class="mt-5 border-secondary">
-            <p class="text-center mb-0 small">© 2026 BDJM Public School. All Rights Reserved.</p>
+            
+            <hr class="mt-5 mb-4 border-secondary opacity-25">
+            <div class="row align-items-center opacity-50">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0 small">© 2026 BDJM Public School. All Rights Reserved.</p>
+                </div>
+            </div>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // STICKY NAVBAR LOGIC
+        // Init Animations
+        AOS.init({ duration: 1000, once: true, offset: 100 });
+
+        // Sticky Navbar Fix
         window.addEventListener('scroll', function() {
             const nav = document.getElementById('mainNavbar');
-            if (window.scrollY > 150) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
+            if (window.scrollY > 150) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
         });
 
-        // BIRTHDAY LOGIC - Using reliable Unsplash IDs
-        const birthdayStars = [
-            { name: "Aryan Negi", class: "Grade IX-B", img: "https://images.pexels.com/photos/32560519/pexels-photo-32560519.jpeg", date: "03-25" },
-            { name: "Sneha Rawat", class: "Grade IV-A", img: "https://images.pexels.com/photos/14075587/pexels-photo-14075587.jpeg", date: "03-25" }
-        ];
+        // ----------------------------------------------------
+        // BULLETPROOF GOOGLE SHEETS API LOGIC
+        // ----------------------------------------------------
+        const SHEET_ID = '1o6o5s1qqf_IXEhmwhXsFH8sE4N19FrylCPKfcB8-z0E'; 
+        const SHEET_NAME = 'Sheet1'; 
+        const API_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
 
-        function checkBirthdays() {
-            const today = new Date();
-            const dateStr = `${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+        async function checkBirthdays() {
             const container = document.getElementById('bday-display');
-            const matches = birthdayStars.filter(s => s.date === dateStr);
+            
+            try {
+                const response = await fetch(API_URL);
+                const text = await response.text();
+                
+                if (text.includes("<html")) {
+                    container.innerHTML = `<div class="col-12"><p class="text-warning fs-5 fw-bold">⚠️ Error: Cannot read the sheet. Ensure it is "Published to the Web" and the tab name matches.</p></div>`;
+                    return;
+                }
 
-            if (matches.length > 0) {
-                matches.forEach(star => {
-                    container.innerHTML += `
-                        <div class="col-md-6 mb-4">
-                            <div class="bday-card">
-                                <img src="${star.img}" class="bday-img" alt="Birthday Boy/Girl">
-                                <h2 class="fw-bold mb-1" style="color:var(--navy)">${star.name}</h2>
-                                <p class="text-warning fw-bold fs-5">${star.class}</p>
-                                <h4 class="font-serif mt-3 text-navy">"Happy Birthday from BDJM School Family ❤️"</h4>
+                const json = JSON.parse(text.substr(47).slice(0, -2));
+                const rows = json.table.rows;
+                
+                // Get today's month and day without leading zeros (e.g., 3 and 25)
+                const today = new Date();
+                const m = today.getMonth() + 1;
+                const d = today.getDate();
+
+                // Create all common Google Sheets date formats to check against
+                const possibleDates = [
+                    `${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`, // 03-25
+                    `${String(m).padStart(2, '0')}/${String(d).padStart(2, '0')}`, // 03/25
+                    `${m}/${d}`, // 3/25
+                    `${d}-${String(m).padStart(2, '0')}`, // 25-03
+                    `${d}/${String(m).padStart(2, '0')}`, // 25/03
+                    `${d}/${m}` // 25/3
+                ];
+
+                container.innerHTML = ""; 
+                let found = false;
+
+                rows.forEach(row => {
+                    if (!row || !row.c) return; 
+
+                    const name = row.c[0] ? row.c[0].v : "";       
+                    const className = row.c[1] ? row.c[1].v : "";  
+                    
+                    let dob = "";
+                    if (row.c[2]) {                                
+                        dob = row.c[2].f ? String(row.c[2].f) : String(row.c[2].v);
+                        dob = dob.trim(); 
+                    }
+
+                    // Check if the spreadsheet date matches ANY of the possible formats
+                    const isBirthday = possibleDates.some(format => dob.includes(format));
+
+                    if (isBirthday) {
+                        found = true;
+                        container.innerHTML += `
+                            <div class="col-md-6 col-lg-6 mb-4">
+                                <div class="bday-card w-100">
+                                    <span style="font-size: 2.5rem; margin-bottom: 15px; display:block;">🎂</span>
+                                    <h4 class="fw-bold mb-2" style="color:var(--navy)">${name}</h4>
+                                    <p class="text-warning fw-bold fs-5 mb-3">${className}</p>
+                                    <hr class="w-25 mx-auto my-3 border-secondary opacity-25">
+                                    <p class="mb-0 text-navy font-serif fst-italic small">"Happy Birthday from the BDJM Family ❤️"</p>
+                                </div>
                             </div>
-                        </div>
-                    `;
+                        `;
+                    }
                 });
-            } else {
-                container.innerHTML = `<div class="col-12"><p class="text-muted fs-5 italic">Wishing all our students a productive day of learning!</p></div>`;
+
+                if (!found) {
+                    container.innerHTML = `<div class="col-12"><p class="text-light fs-5 italic opacity-75">Wishing all our students a productive day of learning!</p></div>`;
+                }
+
+            } catch (error) { 
+                console.error("Fetch Error:", error);
+                container.innerHTML = `<div class="col-12"><p class="text-danger fs-5">Unable to connect to the database right now.</p></div>`;
             }
         }
+        
         document.addEventListener('DOMContentLoaded', checkBirthdays);
     </script>
 </body>
