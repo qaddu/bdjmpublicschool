@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admissions | BDJM Public School</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --navy: #0a1d37;
+            --gold: #ffcc00;
+            --cream: #fdfbf7;
+            --white: #ffffff;
+            --pattern: radial-gradient(rgba(10, 29, 55, 0.12) 1.5px, transparent 1.5px);
+        }
+
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--white); color: #333; scroll-behavior: smooth; overflow-x: hidden; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* --- GLOBAL PROFESSIONAL SPACING --- */
+        .section-spacing { padding: 90px 0; } 
+        .section-title { margin-bottom: 50px; } 
+
+        /* NAVBAR */
+        .navbar { 
+            background: var(--white); box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
+            padding: 20px 0; transition: all 0.4s ease-in-out;
+        }
+        .navbar.scrolled { padding: 8px 0; background: rgba(255, 255, 255, 0.98); box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+        .navbar-brand img { height: 65px; transition: 0.4s; }
+        .navbar.scrolled .navbar-brand img { height: 45px; }
+        
+        .nav-link { 
+            position: relative; color: var(--navy) !important; font-weight: 700; text-transform: uppercase; 
+            font-size: 0.85rem; letter-spacing: 1px; margin: 0 12px; padding-bottom: 5px;
+        }
+        .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 50%; background-color: var(--gold);
+            transition: all 0.3s ease-in-out; transform: translateX(-50%);
+        }
+        .nav-link:hover::after { width: 100%; }
+        
+        .btn-apply { background: var(--gold); color: var(--navy); font-weight: 800; border-radius: 50px; padding: 12px 30px; border: none; transition: 0.3s; box-shadow: 0 4px 15px rgba(255, 204, 0, 0.4); }
+        .btn-apply:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(255, 204, 0, 0.6); }
+
+        /* --- ADMISSIONS PAGE STYLES --- */
+        
+        /* HALF-PAGE HERO */
+        .admissions-hero {
+            height: 45vh; 
+            background: linear-gradient(rgba(10, 29, 55, 0.85), rgba(10, 29, 55, 0.85)), 
+                        url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1920');
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+        }
+
+        /* BACKGROUNDS */
+        .bg-premium { background: linear-gradient(to bottom, #fdfbfb 0%, #f4f8fb 100%); }
+        .bg-principal { background: linear-gradient(135deg, #f4f7f9 0%, #e2e8f0 100%); } 
+        .section-pattern { background-image: var(--pattern); background-size: 24px 24px; }
+
+        /* ADMISSION PROCESS CARDS */
+        .step-card {
+            background: var(--white); border-radius: 15px; padding: 40px 30px; text-align: center;
+            box-shadow: 0 10px 30px rgba(10,29,55,0.05); transition: 0.3s; height: 100%; position: relative;
+        }
+        .step-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(10,29,55,0.1); }
+        .step-number {
+            width: 50px; height: 50px; background: var(--navy); color: var(--gold); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800;
+            position: absolute; top: -25px; left: 50%; transform: translateX(-50%); box-shadow: 0 5px 15px rgba(10,29,55,0.2);
+        }
+        .step-icon { font-size: 2.5rem; color: var(--gold); margin-top: 15px; margin-bottom: 20px; }
+
+        /* PREMIUM FORM STYLES */
+        .admission-form-wrapper {
+            background: var(--white); border-radius: 20px; padding: 50px;
+            box-shadow: 0 20px 50px rgba(10,29,55,0.1); border-top: 6px solid var(--navy);
+            position: relative; overflow: hidden;
+        }
+        .admission-form-wrapper::before {
+            content: ''; position: absolute; top: 0; right: 0; width: 150px; height: 150px;
+            background: var(--gold); border-radius: 0 0 0 100%; opacity: 0.1;
+        }
+        .form-control, .form-select {
+            border: 2px solid #e2e8f0; border-radius: 10px; padding: 15px;
+            font-size: 1rem; transition: 0.3s; background-color: #fdfbfb;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--navy); box-shadow: 0 0 0 4px rgba(10, 29, 55, 0.1);
+            background-color: var(--white);
+        }
+        .form-label { font-weight: 700; color: var(--navy); margin-bottom: 8px; font-size: 0.95rem; }
+        
+        /* DOCUMENT CHECKLIST */
+        .doc-list { background: var(--white); border-radius: 15px; padding: 40px; box-shadow: 0 15px 35px rgba(10,29,55,0.06); }
+        .doc-item { display: flex; align-items: center; margin-bottom: 20px; font-size: 1.1rem; color: var(--navy); }
+        .doc-item i { color: var(--gold); font-size: 1.5rem; margin-right: 15px; }
+
+        /* FOOTER */
+        footer { background: var(--navy); color: #cbd5e1; padding: 80px 0 40px; border-top: 5px solid var(--gold); }
+        .footer-icon { color: var(--gold); width: 25px; text-align: center; margin-right: 10px; }
+        .social-link { 
+            display: inline-flex; align-items: center; justify-content: center; 
+            width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); 
+            color: white; transition: 0.3s; margin-right: 10px; text-decoration: none;
+        }
+        .social-link:hover { background: var(--gold); color: var(--navy); transform: translateY(-3px); }
+        .footer-link { color: #cbd5e1; text-decoration: none; transition: 0.3s; display: inline-block; }
+        .footer-link:hover { color: var(--gold); transform: translateX(5px); }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="logo.jpg" alt="Logo">
+                <span class="ms-3 d-none d-md-block fw-bold" style="color:var(--navy); font-size:1.3rem;">BDJM PUBLIC SCHOOL</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="academics.html">Academics</a></li>
+                    <li class="nav-item"><a class="nav-link" href="school-life.html">School Life</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item ms-lg-4"><a href="admissions.html" class="btn btn-apply" style="box-shadow: 0 4px 15px rgba(255, 204, 0, 0.6); transform: translateY(-2px);">Admissions Open</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="admissions-hero">
+        <div class="container" data-aos="fade-up">
+            <h1 class="display-3 fw-bold text-white mb-3">Admissions <span class="text-gold">2026-2027</span></h1>
+            <p class="fs-4 text-white opacity-75 mb-0 font-serif fst-italic">"Begin Your Child's Journey to Excellence."</p>
+        </div>
+    </header>
+
+    <section class="section-spacing bg-white">
+        <div class="container">
+            <div class="text-center section-title" data-aos="fade-up">
+                <h2 class="display-5 fw-bold mb-2" style="color:var(--navy)">How to Apply</h2>
+                <p class="text-muted fs-5">A simple, transparent process to join the BDJM family.</p>
+            </div>
+
+            <div class="row g-5 mt-3">
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <i class="fas fa-laptop step-icon"></i>
+                        <h4 class="fw-bold text-navy mb-3">Online Inquiry</h4>
+                        <p class="text-muted small mb-0">Fill out the online registration form below to express your interest and initiate the process.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <i class="fas fa-school step-icon"></i>
+                        <h4 class="fw-bold text-navy mb-3">Campus Visit</h4>
+                        <p class="text-muted small mb-0">Our admissions team will invite you for a guided campus tour and a brief counseling session.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <i class="fas fa-file-signature step-icon"></i>
+                        <h4 class="fw-bold text-navy mb-3">Documentation</h4>
+                        <p class="text-muted small mb-0">Submit the required documents (birth certificate, previous report cards, etc.) to the school office.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <i class="fas fa-user-graduate step-icon"></i>
+                        <h4 class="fw-bold text-navy mb-3">Enrollment</h4>
+                        <p class="text-muted small mb-0">Complete the fee payment to officially secure your child's seat in their respective class.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacing bg-premium section-pattern" style="padding-bottom: 140px;">
+        <div class="container">
+            <div class="row g-5">
+                
+                <div class="col-lg-8" data-aos="fade-right">
+                    <div class="admission-form-wrapper">
+                        <h2 class="display-6 fw-bold text-navy mb-2">Online Registration Form</h2>
+                        <p class="text-muted mb-5">Please fill out the details accurately. Our team will contact you within 24 hours.</p>
+                        
+                        <form action="https://formsubmit.co/edenpower37@gmail.com" method="POST">
+                            
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_subject" value="URGENT: New Admission Application for BDJM!">
+                            <input type="hidden" name="_template" value="table">
+                            <h5 class="fw-bold text-gold mb-3 border-bottom pb-2">Student Details</h5>
+                            <div class="row g-4 mb-4">
+                                <div class="col-md-6">
+                                    <label class="form-label">Student's Full Name *</label>
+                                    <input type="text" name="Student_Name" class="form-control" placeholder="Enter student's name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Date of Birth *</label>
+                                    <input type="date" name="Date_of_Birth" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Applying for Class *</label>
+                                    <select name="Applying_For_Class" class="form-select" required>
+                                        <option value="" disabled selected>Select Class</option>
+                                        <option value="Class I">Class I</option>
+                                        <option value="Class II">Class II</option>
+                                        <option value="Class III">Class III</option>
+                                        <option value="Class IV">Class IV</option>
+                                        <option value="Class V">Class V</option>
+                                        <option value="Class VI">Class VI</option>
+                                        <option value="Class VII">Class VII</option>
+                                        <option value="Class VIII">Class VIII</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Previous School (If any)</label>
+                                    <input type="text" name="Previous_School" class="form-control" placeholder="Name of previous school">
+                                </div>
+                            </div>
+
+                            <h5 class="fw-bold text-gold mb-3 border-bottom pb-2 mt-5">Parent / Guardian Details</h5>
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <label class="form-label">Parent's Full Name *</label>
+                                    <input type="text" name="Parent_Name" class="form-control" placeholder="Enter parent's name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Contact Number *</label>
+                                    <input type="tel" name="Phone_Number" class="form-control" placeholder="+91 98765 43210" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label">Email Address *</label>
+                                    <input type="email" name="Email" class="form-control" placeholder="parent@example.com" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Residential Address *</label>
+                                    <textarea name="Address" class="form-control" rows="3" placeholder="Enter full address" required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Any Special Instructions / Queries</label>
+                                    <textarea name="Message" class="form-control" rows="2" placeholder="Optional notes..."></textarea>
+                                </div>
+                                
+                                <div class="col-12 mt-5">
+                                    <button type="submit" class="btn btn-apply w-100 fs-5 py-3">Submit Application <i class="fas fa-paper-plane ms-2"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-4" data-aos="fade-left" data-aos-delay="200">
+                    <div class="doc-list mb-5">
+                        <h4 class="fw-bold text-navy mb-4 border-bottom border-warning pb-3">Documents Required</h4>
+                        <div class="doc-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Student's Birth Certificate</span>
+                        </div>
+                        <div class="doc-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>4 Passport Sized Photographs</span>
+                        </div>
+                        <div class="doc-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Aadhar Card (Student & Parents)</span>
+                        </div>
+                        <div class="doc-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Previous Year Report Card</span>
+                        </div>
+                        <div class="doc-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Original Transfer Certificate (TC)</span>
+                        </div>
+                    </div>
+
+                    <div class="doc-list bg-principal border-0">
+                        <h4 class="fw-bold text-navy mb-3">Need Help?</h4>
+                        <p class="text-muted mb-4">If you face any issues during the admission process, our admissions desk is ready to assist you.</p>
+                        <p class="mb-2"><i class="fas fa-phone-alt text-gold me-2"></i> <strong>+91 98765 43210</strong></p>
+                        <p class="mb-0"><i class="fas fa-envelope text-gold me-2"></i> <strong>edenpower37@gmail.com</strong></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="row g-5 justify-content-between">
+                
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="mb-3" style="font-size: 2.2rem; font-weight: 800; color: var(--gold); font-family: 'Playfair Display', serif;">BDJM</div>
+                    <p class="opacity-75 mb-4">Building a brighter future through education, empathy, and excellence. We are your partners in growth.</p>
+                    <div class="d-flex">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 mb-4 mb-lg-0">
+                    <h5 class="text-white mb-4 fw-bold">Quick Links</h5>
+                    <ul class="list-unstyled opacity-75">
+                        <li class="mb-3"><a href="#" class="footer-link">About Us</a></li>
+                        <li class="mb-3"><a href="#" class="footer-link">Admission Policy</a></li>
+                        <li class="mb-3"><a href="#" class="footer-link">Academic Calendar</a></li>
+                        <li class="mb-3"><a href="#" class="footer-link">School ERP Login</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4">
+                    <h5 class="text-white mb-4 fw-bold">Contact Us</h5>
+                    <ul class="list-unstyled opacity-75">
+                        <li class="mb-3 d-flex align-items-start">
+                            <i class="fas fa-map-marker-alt footer-icon mt-1"></i>
+                            <span>Dhikuli Ramnagar,<br>Nainital, Uttarakhand 244715</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-center">
+                            <i class="fas fa-phone-alt footer-icon"></i>
+                            <span>+91 98765 43210</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-center">
+                            <i class="fas fa-envelope footer-icon"></i>
+                            <span>edenpower37@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="mt-5 mb-4 border-secondary opacity-25">
+            <div class="row align-items-center opacity-50">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0 small">© 2026 BDJM Public School. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Init Animations
+        AOS.init({ duration: 1000, once: true, offset: 100 });
+
+        // Sticky Navbar Fix
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('mainNavbar');
+            if (window.scrollY > 100) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+    </script>
+</body>
+</html>
